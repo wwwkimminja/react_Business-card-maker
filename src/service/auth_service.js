@@ -17,8 +17,16 @@ class AuthService {
             case "Github":
                 return this.githubProvider;
             default:
-                throw new Error(`not supproted provider:${providerName}`);
+                throw new Error(`not supported provider:${providerName}`);
         }
+    }
+    logout() {
+        this.firebaseAuth.signOut();
+    }
+    onAuthChange(onUserChanged) {
+        this.firebaseAuth.onAuthStateChanged((user) => {
+            onUserChanged(user);
+        });
     }
 
 }
